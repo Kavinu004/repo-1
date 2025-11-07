@@ -1,0 +1,25 @@
+name: Vowel Frequency Analyzer CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Build Docker image
+        run: docker build -t vowel-frequency-analyzer:latest .
+
+      - name: Run analyzer container
+        env:
+          GITHUB_USER: ${{ github.actor }}
+        run: |
+          docker run --rm \
+            -e GITHUB_USER="${GITHUB_USER}" \
+            -e FILE="data.txt" \
+            vowel-frequency-analyzer:latest
