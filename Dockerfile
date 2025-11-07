@@ -10,4 +10,4 @@ COPY . .
 
 RUN chmod +x .github/scripts/entrypoint.sh .github/scripts/update_readme.sh
 
-ENTRYPOINT [".github/scripts/entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", ".github/scripts/entrypoint.sh"]
